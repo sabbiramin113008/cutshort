@@ -26,7 +26,7 @@ class API:
 
     def add_func(self, path, handler_func, http_method='POST'):
         if http_method in VALID_HTTP_METHOD:
-            self.routes['POST:{}'.format(path)] = {
+            self.routes['{}:{}'.format(http_method, path)] = {
                 'handler_func': handler_func,
                 'method': http_method
             }
