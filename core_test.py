@@ -16,7 +16,7 @@ def summation(a: int, b: int):
     return a + b
 
 
-app.add_func(path='/', handler_func=summation)
+app.add_func(path='/', handler_func=summation, http_method='COSY')
 
 if __name__ == '__main__':
     run_simple(

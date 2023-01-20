@@ -11,6 +11,8 @@ from datetime import datetime
 from parse import parse
 from webob import Request, Response
 
+VALID_HTTP_METHOD = ['HEAD', 'POST', 'GET', 'PUT', 'DELETE', 'PATCH']
+
 
 class API:
     def __init__(self):
@@ -22,8 +24,14 @@ class API:
         response.json = response_obj
         return response
 
-    def add_func(self, path, handler_func):
-        self.routes['POST:{}'.format(path)] = {'handler_func': handler_func, 'method': 'POST'}
+    def add_func(self, path, handler_func, http_method='POST'):
+        if http_method in VALID_HTTP_METHOD:
+            self.routes['POST:{}'.format(path)] = {
+                'handler_func': handler_func,
+                'method': http_method
+            }
+        else:
+            raise Exception('NOT a Valid HTTP Method')
 
     def find_handler_func(self, http_method, url_path):
         requested_path = '{}:{}'.format(http_method, url_path)
