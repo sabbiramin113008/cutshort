@@ -14,7 +14,7 @@ with open("README.md", "r") as f:
 
 setup(
     name='cutshort',
-    version='0.0.1',
+    version='0.0.2',
     author='Sabbir Amin',
     author_email='sabbiramin.cse11ruet@gmail.com',
     description='Yet another, experimental utility to write wsgi REST API apps using python functions, Mostly.',
