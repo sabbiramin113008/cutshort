@@ -11,7 +11,17 @@ from datetime import datetime
 from parse import parse
 from webob import Request, Response
 
-VALID_HTTP_METHOD = ['HEAD', 'POST', 'GET', 'PUT', 'DELETE', 'PATCH']
+VALID_HTTP_METHOD = ['POST', 'GET', 'PUT', 'DELETE', 'PATCH']
+METHOD_MAPPING = {
+    'CREATE': 'POST',
+    'UPDATE': 'PUT',
+    'RETRIEVE': 'GET',
+    'GET': 'GET',
+    'POST': 'POST',
+    'PUT': 'PUT',
+    'DELETE': 'DELETE',
+
+}
 
 
 class API:
@@ -24,7 +34,14 @@ class API:
         response.json = response_obj
         return response
 
-    def add_func(self, handler_func, path=None, http_method='POST'):
+    def add_func(self, handler_func, path=None, http_method=None):
+        prefix_name = str(handler_func.__name__).lower().split('_')[0]
+        mapped_prefix_name = METHOD_MAPPING.get(prefix_name.upper(), None)
+        if http_method is None and mapped_prefix_name in VALID_HTTP_METHOD:
+            http_method = mapped_prefix_name
+        else:
+            http_method = http_method
+        print('http-method:', http_method)
 
         if http_method in VALID_HTTP_METHOD:
             path = path if path else '/{}'.format(str(handler_func.__name__).lower())

@@ -36,14 +36,44 @@ def get_user_by_id(user_id: int):
     return None
 
 
+def create_user(id: int, name: str, age: int):
+    user = {
+        'ID': id,
+        'name': name,
+        'age': age
+    }
+    user_db.append(user)
+    return user_db
+
+
+def delete_user(id: int):
+    for index, user in enumerate(user_db):
+        if user.get('ID') == id:
+            user_db.remove(user)
+            return user_db
+    return None
+
+
+def update_user(id: int, name: str):
+    for user in user_db:
+        if user.get('ID') == id:
+            user['name'] = name
+            return user
+    return None
+
+
 def send_message(message: str):
     return 'Your Message is + {}'.format(message)
 
 
-api.add_func(get_summation, path='/')
-api.add_func(send_message)
+api.add_func(get_summation, path='/', http_method='GET')
+api.add_func(send_message,http_method='POST')
 api.add_func(get_users)
 api.add_func(get_user_by_id)
+api.add_func(create_user)
+api.add_func(delete_user)
+api.add_func(update_user)
 
 if __name__ == '__main__':
     simple_server(host='localhost', port=8456, application=api)
+
