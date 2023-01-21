@@ -48,3 +48,5 @@ Thumbs.db
 /venv/
 *.db
 
+/build/
+/cutshort.egg-info/
