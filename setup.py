@@ -9,12 +9,14 @@ email: sabbir.amin@goava.com, sabbiramin.cse11ruet@gmail.com
 import setuptools
 from setuptools import setup
 
-with open("README.md", "r") as f:
-    long_description = f.read()
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
+
 
 setup(
     name='cutshort',
-    version='0.0.3',
+    version='0.0.4',
     author='Sabbir Amin',
     author_email='sabbiramin.cse11ruet@gmail.com',
     description='Yet another, experimental utility to write wsgi REST API apps using python functions, Mostly.',
